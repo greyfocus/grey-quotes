@@ -3,7 +3,7 @@ package com.greyfocus.rest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
-import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.inject.Inject;
 
@@ -14,10 +14,11 @@ import javax.inject.Inject;
 public class RestValidationConfiguration extends RepositoryRestConfigurerAdapter {
 
     @Inject
-    private Validator validator;
+    private LocalValidatorFactoryBean validator;
 
     @Override
     public void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {
+        super.configureValidatingRepositoryEventListener(validatingListener);
         validatingListener.addValidator("beforeCreate", validator);
         validatingListener.addValidator("beforeSave", validator);
     }

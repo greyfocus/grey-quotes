@@ -1,10 +1,10 @@
-package com.greyfocus.rest;
+package com.greyfocus.quotes.rest;
 
-import com.greyfocus.model.Quote;
-import com.greyfocus.persistence.QuoteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.greyfocus.quotes.model.Quote;
+import com.greyfocus.quotes.persistence.QuoteRepository;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.data.rest.webmvc.RepositorySearchesResource;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.*;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import java.util.Arrays;
 @BasePathAwareController
 @RequestMapping("/quotes/search")
 @ExposesResourceFor(Quote.class)
-public class QuoteController implements ResourceProcessor<RepositorySearchesResource>, ResourceAssembler<Quote, Resource<Quote>> {
+public class RestQuoteController implements ResourceProcessor<RepositorySearchesResource>, ResourceAssembler<Quote, Resource<Quote>> {
 
     @Inject
     private QuoteRepository quoteRepository;
@@ -34,7 +34,11 @@ public class QuoteController implements ResourceProcessor<RepositorySearchesReso
 
     @RequestMapping(value = "random", method = RequestMethod.GET)
     public ResponseEntity<Resource<Quote>> randomQuote() {
-        return new ResponseEntity<>(toResource(quoteRepository.randomQuote()), HttpStatus.OK);
+        Quote quote = quoteRepository.randomQuote();
+        if (quote == null) {
+            throw new ResourceNotFoundException("No quote was found");
+        }
+        return new ResponseEntity<>(toResource(quote), HttpStatus.OK);
     }
 
     @Override

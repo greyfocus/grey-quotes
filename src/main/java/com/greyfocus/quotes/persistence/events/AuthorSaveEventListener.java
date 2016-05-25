@@ -1,6 +1,6 @@
-package com.greyfocus.persistence.events;
+package com.greyfocus.quotes.persistence.events;
 
-import com.greyfocus.model.Author;
+import com.greyfocus.quotes.model.Author;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.util.Assert;

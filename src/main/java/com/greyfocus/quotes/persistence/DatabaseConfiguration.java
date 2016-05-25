@@ -1,7 +1,7 @@
-package com.greyfocus.persistence;
+package com.greyfocus.quotes.persistence;
 
-import com.greyfocus.persistence.events.AuthorSaveEventListener;
-import com.greyfocus.persistence.events.QuoteSaveEventListener;
+import com.greyfocus.quotes.persistence.events.AuthorSaveEventListener;
+import com.greyfocus.quotes.persistence.events.QuoteSaveEventListener;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -19,7 +19,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
  * Configuration for the MongoDB database.
  */
 @Configuration
-@EnableMongoRepositories("com.greyfocus.persistence")
+@EnableMongoRepositories("com.greyfocus.quotes.persistence")
 @Import(value = MongoAutoConfiguration.class)
 public class DatabaseConfiguration extends AbstractMongoConfiguration {
 

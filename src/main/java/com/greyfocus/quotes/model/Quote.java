@@ -1,5 +1,6 @@
-package com.greyfocus.model;
+package com.greyfocus.quotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
@@ -30,6 +31,10 @@ public class Quote {
     @Indexed
     private List<String> tags;
 
+    @Indexed
+    @JsonIgnore
+    private double rnd = Math.random();
+
     public String getId() {
         return id;
     }
@@ -44,6 +49,14 @@ public class Quote {
 
     public void setAuthor(AuthorName author) {
         this.author = author;
+    }
+
+    public double getRnd() {
+        return rnd;
+    }
+
+    public void setRnd(double rnd) {
+        this.rnd = rnd;
     }
 
     public String getText() {

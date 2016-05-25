@@ -1,4 +1,4 @@
-package com.greyfocus.rest;
+package com.greyfocus.quotes.rest;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;

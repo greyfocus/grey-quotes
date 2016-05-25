@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="quote" type="com.greyfocus.quotes.model.Quote"*/-->
+
+<head>
+    <link href="/css/styles.css" type="text/css" rel="stylesheet"/>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'/>
+
+</head>
+
+<body>
+<div class="vertical-center">
+    <div class="center">
+        <div class="quote" th:text="${quote.text}"></div>
+        <div class="author" th:text="'~ ' + ${quote.author.name}"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,6 +1,6 @@
-package com.greyfocus.persistence;
+package com.greyfocus.quotes.persistence;
 
-import com.greyfocus.model.Author;
+import com.greyfocus.quotes.model.Author;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

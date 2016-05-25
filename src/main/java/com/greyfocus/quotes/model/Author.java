@@ -1,4 +1,4 @@
-package com.greyfocus.model;
+package com.greyfocus.quotes.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;

@@ -1,9 +1,9 @@
-package com.greyfocus.persistence.events;
+package com.greyfocus.quotes.persistence.events;
 
-import com.greyfocus.model.Author;
-import com.greyfocus.model.AuthorName;
-import com.greyfocus.model.Quote;
-import com.greyfocus.persistence.AuthorRepository;
+import com.greyfocus.quotes.model.Author;
+import com.greyfocus.quotes.model.AuthorName;
+import com.greyfocus.quotes.model.Quote;
+import com.greyfocus.quotes.persistence.AuthorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.convert.MongoConverter;

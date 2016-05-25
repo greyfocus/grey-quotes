@@ -1,4 +1,4 @@
-package com.greyfocus.persistence;
+package com.greyfocus.quotes.persistence;
 
 import com.mongodb.DBObject;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;

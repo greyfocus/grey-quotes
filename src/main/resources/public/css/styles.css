@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+
+    margin: 0;
+}
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+}
+
+.center {
+    max-width: 60%;
+    text-align: right;
+}
+
+.quote {
+    font-size: 48px;
+}
+
+.author {
+    margin-top: 1em;
+    font-size: 28px;
+    text-align: right;
+}

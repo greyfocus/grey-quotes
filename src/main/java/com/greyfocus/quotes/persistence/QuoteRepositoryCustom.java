@@ -1,6 +1,6 @@
-package com.greyfocus.persistence;
+package com.greyfocus.quotes.persistence;
 
-import com.greyfocus.model.Quote;
+import com.greyfocus.quotes.model.Quote;
 
 /**
  * Extended quote repository that adds new methods.

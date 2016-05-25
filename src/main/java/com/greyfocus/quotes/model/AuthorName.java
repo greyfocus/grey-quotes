@@ -1,4 +1,4 @@
-package com.greyfocus.model;
+package com.greyfocus.quotes.model;
 
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Field;

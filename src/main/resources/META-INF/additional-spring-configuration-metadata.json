@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "persistence.randomQuote.strategy",
+      "type": "java.lang.String",
+      "description": "Random quote strategy to be used."
+    }
+  ],
+  "hints": [
+    {
+      "name": "persistence.randomQuote.strategy",
+      "values": [
+        {
+          "value": "skip",
+          "description": "Strategy which chooses a quote by skipping a random number of entries from the list of all quotes."
+        },
+        {
+          "value": "rnd-field",
+          "description": "Fetches a random quote from the database, by using the 'rnd' column algorithm."
+        },
+        {
+          "value": "sample",
+          "description": "Generates a random quote using the Mongo 'sample' aggregation."
+        }
+      ]
+    }
+  ]
+}

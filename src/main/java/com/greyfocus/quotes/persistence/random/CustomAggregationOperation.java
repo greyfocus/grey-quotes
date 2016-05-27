@@ -1,4 +1,4 @@
-package com.greyfocus.quotes.persistence;
+package com.greyfocus.quotes.persistence.random;
 
 import com.mongodb.DBObject;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;

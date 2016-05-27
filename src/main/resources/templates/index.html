@@ -13,7 +13,7 @@
 <div class="vertical-center">
     <div class="center">
         <div class="quote"><a th:href="@{/quotes/{quoteId}(quoteId=${quote.id})}" th:text="${quote.text}"></a></div>
-        <div class="author" th:text="'~ ' + ${quote.author.name}"></div>
+        <div class="author"><span th:text="'~ ' + ${quote.author.name}"></span><span th:if="${quote.source != null}" th:text="', ' + ${quote.source.name}"></span></div>
     </div>
 </div>
 </body>

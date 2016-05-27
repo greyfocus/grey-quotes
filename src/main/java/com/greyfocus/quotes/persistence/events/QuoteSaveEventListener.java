@@ -1,18 +1,18 @@
 package com.greyfocus.quotes.persistence.events;
 
-import com.greyfocus.quotes.model.Author;
-import com.greyfocus.quotes.model.AuthorName;
-import com.greyfocus.quotes.model.Quote;
+import com.greyfocus.quotes.model.*;
 import com.greyfocus.quotes.persistence.AuthorRepository;
+import com.greyfocus.quotes.persistence.SourceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import javax.inject.Inject;
+import java.util.Collections;
 
 /**
  * Listener for quote save/convert events which links the quote with a corresponding author entity. If no such author
@@ -26,12 +26,13 @@ public class QuoteSaveEventListener extends AbstractMongoEventListener<Quote> {
     private AuthorRepository authorRepository;
 
     @Inject
-    private MongoConverter mongoConverter;
+    private SourceRepository sourceRepository;
 
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Quote> event) {
         Quote quote = event.getSource();
         updateAuthor(quote);
+        updateSource(quote);
         LOGGER.info("Updated quote " + quote);
     }
 
@@ -49,6 +50,8 @@ public class QuoteSaveEventListener extends AbstractMongoEventListener<Quote> {
         Assert.notNull(authorName);
 
         if (!StringUtils.isEmpty(authorName.getAuthorId())) {
+            updateAuthorName(authorName);
+
             // Nothing to do in this case since we already have an author ID.
             return false;
         }
@@ -64,5 +67,55 @@ public class QuoteSaveEventListener extends AbstractMongoEventListener<Quote> {
         authorName.setAuthorId(author.getId());
 
         return true;
+    }
+
+    /**
+     * Ensures that the source field of the quote is set correctly. This method uses the same algorithm as
+     * {@link #updateAuthor(Quote)}, except that it applies to sources.
+     * @param quote the quote.
+     * @return <code>true</code> if the source was altered, <code>false</code> otherwise.
+     */
+    private boolean updateSource(Quote quote) {
+        SourceName sourceName = quote.getSource();
+        if (sourceName == null) {
+            return false;
+        }
+
+        if (!StringUtils.isEmpty(sourceName.getSourceId())) {
+            updateSourceName(sourceName);
+
+            // Nothing to do in this case since we already have a source ID.
+            return false;
+        }
+
+        Source source = sourceRepository.findByName(sourceName.getName());
+        if (source == null) {
+            source = new Source();
+            source.setName(sourceName.getName());
+            source.setAuthors(Collections.singletonList(quote.getAuthor()));
+
+            sourceRepository.save(source);
+        }
+        sourceName.setSourceId(source.getId());
+
+        return true;
+    }
+
+    private void updateAuthorName(AuthorName authorName) {
+        Author author = authorRepository.findOne(authorName.getAuthorId());
+        if (author == null) {
+            throw new ResourceNotFoundException("Unable to find author for ID " + authorName.getAuthorId());
+        }
+
+        authorName.setName(author.getName());
+    }
+
+    private void updateSourceName(SourceName sourceName) {
+        Source source = sourceRepository.findOne(sourceName.getSourceId());
+        if (source == null) {
+            throw new ResourceNotFoundException("Unable to find source for ID " + sourceName.getSourceId());
+        }
+
+        sourceName.setName(source.getName());
     }
 }

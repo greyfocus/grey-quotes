@@ -29,6 +29,9 @@ public class Quote {
     private AuthorName author;
 
     @Indexed
+    private SourceName source;
+
+    @Indexed
     private List<String> tags;
 
     @Indexed
@@ -59,6 +62,14 @@ public class Quote {
         this.rnd = rnd;
     }
 
+    public SourceName getSource() {
+        return source;
+    }
+
+    public void setSource(SourceName source) {
+        this.source = source;
+    }
+
     public String getText() {
         return text;
     }
@@ -82,7 +93,9 @@ public class Quote {
                 ", createdAt=" + createdAt +
                 ", text='" + text + '\'' +
                 ", author=" + author +
+                ", source=" + source +
                 ", tags=" + tags +
+                ", rnd=" + rnd +
                 '}';
     }
 }

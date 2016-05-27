@@ -5,23 +5,23 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * Short version of {@link Author}, to be used as a reference when only the ID and author name are required.
+ * Short form of the {@link Source} object, to be used as a reference when only the name of the source is needed.
  */
-@TypeAlias("author_name")
-public class AuthorName {
+@TypeAlias("source_name")
+public class SourceName {
 
-    @Field("author_id")
-    private String authorId;
+    @Field("source_id")
+    private String sourceId;
 
     @NotBlank
     private String name;
 
-    public String getAuthorId() {
-        return authorId;
+    public String getSourceId() {
+        return sourceId;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
     public String getName() {
@@ -34,8 +34,8 @@ public class AuthorName {
 
     @Override
     public String toString() {
-        return "AuthorName{" +
-                "authorId='" + authorId + '\'' +
+        return "SourceName{" +
+                "sourceId='" + sourceId + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

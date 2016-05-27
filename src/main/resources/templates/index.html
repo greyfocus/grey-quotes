@@ -3,7 +3,7 @@
 <!--/*@thymesVar id="quote" type="com.greyfocus.quotes.model.Quote"*/-->
 
 <head>
-    <link href="/css/styles.css" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/styles.css}" type="text/css" rel="stylesheet"/>
     <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'/>
 
     <title>Random Quote</title>
@@ -12,7 +12,7 @@
 <body>
 <div class="vertical-center">
     <div class="center">
-        <div class="quote" th:text="${quote.text}"></div>
+        <div class="quote"><a th:href="@{/quotes/{quoteId}(quoteId=${quote.id})}" th:text="${quote.text}"></a></div>
         <div class="author" th:text="'~ ' + ${quote.author.name}"></div>
     </div>
 </div>

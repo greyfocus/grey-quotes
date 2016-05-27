@@ -6,25 +6,24 @@ body {
     font-family: 'Libre Baskerville', serif;
 
     margin: 0;
-
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,c9c9c9+100&0+56,0.65+100 */
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(113, 113, 113, 0) 56%, rgba(201, 201, 201, 0.65) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(113, 113, 113, 0) 56%, rgba(201, 201, 201, 0.65) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(113, 113, 113, 0) 56%, rgba(201, 201, 201, 0.65) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#a6c9c9c9', GradientType=0); /* IE6-9 */
 }
 
 .vertical-center {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 
     height: 100%;
 }
 
 .center {
-    max-width: 60%;
     text-align: right;
+
+    background: linear-gradient(-90deg, #ED5148 0%, #ED5148 18%, #FFFFFF 18.1%, #FFFFFF);
+    padding-right: 20%;
+    padding-left: 10%;
+
+    width: 100%;
 }
 
 .quote {

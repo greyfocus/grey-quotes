@@ -20,7 +20,6 @@ import java.util.Arrays;
  */
 @BasePathAwareController
 @RequestMapping("/quotes/search")
-@ExposesResourceFor(Quote.class)
 public class RestQuoteController implements ResourceProcessor<RepositorySearchesResource>, ResourceAssembler<Quote, Resource<Quote>> {
 
     @Inject

@@ -4,3 +4,14 @@ spring:
       uri: mongodb://localhost:27017/quotes
     rest:
       base-path: /api
+
+security:
+  enable-csrf: false
+  user:
+    # default username and password, to be replaced from environment variables
+    name: user
+    password: password
+
+persistence:
+  randomQuote:
+    strategy: skip

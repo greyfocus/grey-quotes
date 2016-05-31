@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import javax.inject.Inject;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Listener for quote save/convert events which links the quote with a corresponding author entity. If no such author
@@ -33,15 +34,17 @@ public class QuoteSaveEventListener extends AbstractMongoEventListener<Quote> {
         Quote quote = event.getSource();
         updateAuthor(quote);
         updateSource(quote);
+        updateTags(quote);
         LOGGER.info("Updated quote " + quote);
     }
 
     /**
      * Ensures that the author field on the quote is set correctly.
      * <ul>
-     *     <li>it creates a new author and assigns the author_id property if no author with the given name exists.</li>
-     *     <li>it sets the author_id field property if the author already exists.</li>
+     * <li>it creates a new author and assigns the author_id property if no author with the given name exists.</li>
+     * <li>it sets the author_id field property if the author already exists.</li>
      * </ul>
+     *
      * @param quote the quote
      * @return <code>true</code> if the author was altered, <code>false</code> if no changes occurred.
      */
@@ -72,12 +75,14 @@ public class QuoteSaveEventListener extends AbstractMongoEventListener<Quote> {
     /**
      * Ensures that the source field of the quote is set correctly. This method uses the same algorithm as
      * {@link #updateAuthor(Quote)}, except that it applies to sources.
+     *
      * @param quote the quote.
      * @return <code>true</code> if the source was altered, <code>false</code> otherwise.
      */
     private boolean updateSource(Quote quote) {
         SourceName sourceName = quote.getSource();
-        if (sourceName == null) {
+        if (isSourceEmpty(sourceName)) {
+            quote.setSource(null);
             return false;
         }
 
@@ -99,6 +104,21 @@ public class QuoteSaveEventListener extends AbstractMongoEventListener<Quote> {
         sourceName.setSourceId(source.getId());
 
         return true;
+    }
+
+    private void updateTags(Quote quote) {
+        List<String> tags = quote.getTags();
+        if (tags == null) {
+            // Nothing to do.
+            return;
+        }
+
+        tags.removeIf(StringUtils::isEmpty);
+    }
+
+    private boolean isSourceEmpty(SourceName sourceName) {
+        return sourceName == null
+                || (StringUtils.isEmpty(sourceName.getName()) && StringUtils.isEmpty(sourceName.getSourceId()));
     }
 
     private void updateAuthorName(AuthorName authorName) {
